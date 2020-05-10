@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "811792252437",
+    "firebase_url": "https://ayuda-edd84.firebaseio.com",
+    "project_id": "ayuda-edd84",
+    "storage_bucket": "ayuda-edd84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811792252437:android:0fabe32acc544df795181c",
+        "android_client_info": {
+          "package_name": "beltran.miguel.a3ayudaempleado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811792252437-77bd2o2i97k7f7vd79qg0eg207dbrhfa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "beltran.miguel.a3ayudaempleado",
+            "certificate_hash": "a17587fb84228ca9a7bd7a3c91e20935049eb99e"
+          }
+        },
+        {
+          "client_id": "811792252437-bk4v6k35j6tapqdse71ruomr0r3raj32.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFloUkrOdnIC_6fVgI-x6gLlGTBChSluk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811792252437-bk4v6k35j6tapqdse71ruomr0r3raj32.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

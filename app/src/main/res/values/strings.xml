@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">3AyudaEmpleado</string>
+    <string name="inicio_sesion">Iniciar Sesión</string>
+    <string name="registro">Crear perfil</string>
+    <string name="nombre">Nombre</string>
+    <string name="edad">Edad</string>
+    <string name="correo">Correo</string>
+    <string name="servicio">Servicios</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="salir">Cerrar sesión</string>
+</resources>
