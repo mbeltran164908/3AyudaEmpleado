@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ChatActivity"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="@color/azulgrisoscuro">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/comentario_contenido"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/negro"
+            android:text="Trabajo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/comentario_nombre"
+            android:textSize="18dp"
+            android:text="nombre de la persona"
+            android:textColor="@color/grisoscuro"/>
+    </LinearLayout>
+
+    <ListView
+        android:padding="10dp"
+        android:id="@+id/lista_mensajes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="5"
+        android:divider="@null"
+        android:dividerHeight="10dp" />
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:background="@color/grisclaro">
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:inputType="text"
+            android:id="@+id/mensaje_nuevo"/>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_send_black_24dp"
+            android:id="@+id/btn_enviar"
+            android:background="@drawable/marco2"/>
+    </LinearLayout>
+
+</LinearLayout>

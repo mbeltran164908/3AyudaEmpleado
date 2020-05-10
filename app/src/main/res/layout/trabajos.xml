@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/marco2"
+    android:padding="10dp"
+    android:backgroundTint="@color/azulgrisoscuro">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comentario_contenido"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/negro"
+        android:text="Trabajo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/comentario_nombre"
+        android:textSize="18dp"
+        android:text="nombre de la persona"
+        android:textColor="@color/grisoscuro"/>
+</LinearLayout>

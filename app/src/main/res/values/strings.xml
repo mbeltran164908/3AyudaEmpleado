@@ -8,4 +8,20 @@
     <string name="servicio">Servicios</string>
     <string name="registrarse">Registrarse</string>
     <string name="salir">Cerrar sesión</string>
+    <string name="boton">Acceder</string>
+    <string name="mail">Correo</string>
+    <string name="pass">Contraseña</string>
+    <string name="conf">Confirmar</string>
+    <string name="age">Edad</string>
+    <string name="phone">Teléfono</string>
+    <string name="perfil">PERFIL</string>
+    <string name="personal">Personal de Servicio</string>
+    <string name="bienvenida">BIENVENIDO</string>
+    <string name="colonia_hint"><font size="24">Colonia</font></string>
+    <string name="calle_hint"><font size="24">Calle</font></string>
+    <string name="casa_hint"><font size="24"># Casa</font></string>
+    <string name="ubicacion">UBICACIÓN</string>
+    <string name="aceptar">ACEPTAR</string>
+    <string name="buzon">BUZÓN SUGERENCIAS</string>
+    <string name="enviar">ENVIAR</string>
 </resources>
