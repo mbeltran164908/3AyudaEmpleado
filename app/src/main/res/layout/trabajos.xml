@@ -4,11 +4,12 @@
     android:layout_height="wrap_content"
     android:background="@drawable/marco2"
     android:padding="10dp"
-    android:backgroundTint="@color/azulgrisoscuro">
+    android:backgroundTint="@color/azulgrisoscuro"
+    android:id="@+id/trabajo_select">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/comentario_contenido"
+        android:id="@+id/trabajo_titulo"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/negro"
@@ -17,7 +18,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:id="@+id/comentario_nombre"
+        android:id="@+id/trabajo_nombre"
         android:textSize="18dp"
         android:text="nombre de la persona"
         android:textColor="@color/grisoscuro"/>

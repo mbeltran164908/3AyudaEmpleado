@@ -77,13 +77,13 @@
             android:orientation="vertical">
 
             <ListView
-                android:id="@+id/listview"
+                android:id="@+id/lista_trabajos"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:divider="@null"
                 android:dividerHeight="10dp" />
             <Button
                 android:id="@+id/btn_salir"
