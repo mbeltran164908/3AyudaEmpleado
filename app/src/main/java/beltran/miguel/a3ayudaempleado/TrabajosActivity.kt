@@ -29,6 +29,10 @@ class TrabajosActivity : AppCompatActivity() {
             .setPersistenceEnabled(true)
             .build()
         db.firestoreSettings = settings
+
+        btn_perfil.setOnClickListener {
+            updateUI()
+        }
         //obtenerTrabajos();
         agregarListenerTrabajos()
     }
@@ -118,5 +122,10 @@ class TrabajosActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         moveTaskToBack(true)
+    }
+
+    private fun updateUI(){
+        val intent = Intent(this, PerfilActivity::class.java)
+        startActivity(intent)
     }
 }

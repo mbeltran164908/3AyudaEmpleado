@@ -2,14 +2,18 @@ package beltran.miguel.a3ayudaempleado
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_registro.*
+import java.io.ByteArrayOutputStream
 
 
 class RegistroActivity : AppCompatActivity() {
@@ -71,7 +75,28 @@ class RegistroActivity : AppCompatActivity() {
     private fun subirPerfil(id: String, perfil: Perfil) {
         var mFirestore = FirebaseFirestore.getInstance()
         mFirestore.collection("perfiles").document(id).set(perfil)
+        subirImagen()
         Toast.makeText(this, "Perfil creado!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun subirImagen(){
+        val storage=FirebaseStorage.getInstance()
+        val storageRef=storage.reference
+        val acct = GoogleSignIn.getLastSignedInAccount(this)?.email
+        val imgRef = storageRef.child("perfiles/$acct.jpg")
+
+        iv_imagen.isDrawingCacheEnabled = true
+        iv_imagen.buildDrawingCache()
+        var bitmap = (iv_imagen.drawable as BitmapDrawable).bitmap
+        bitmap=Bitmap.createScaledBitmap(bitmap, 128, 128, true)
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        var uploadTask = imgRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener {
+        }
     }
 
     private fun updateUI() {

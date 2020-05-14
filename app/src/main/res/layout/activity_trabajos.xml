@@ -6,14 +6,31 @@
     android:orientation="vertical"
     tools:context=".TrabajosActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/cuadro_trabajos"
-        android:padding="20dp"
-        android:text="Mis trabajos"
-        android:textColor="@color/blanco"
-        android:textSize="18sp" />
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/cuadro_trabajos"
+            android:padding="20dp"
+            android:text="Mis trabajos"
+            android:textColor="@color/blanco"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/btn_perfil"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/cuadro_trabajos"
+            android:src="@drawable/ic_person" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_trabajos"
