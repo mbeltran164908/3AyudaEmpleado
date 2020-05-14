@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.mensaje_enviado.view.*
 import kotlinx.android.synthetic.main.mensajes.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -68,7 +70,7 @@ class ChatActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat("hh:mm a dd/M/yyyy")
             val currentDate = sdf.format(Date())
             val sender = GoogleSignIn.getLastSignedInAccount(this)?.displayName
-            val mensaje = Mensaje(currentDate, sender!!, idTrabajo!!, et_mensaje.text.toString())
+            val mensaje = Mensaje(currentDate, idTrabajo!!, et_mensaje.text.toString(),sender!!)
 
             db.collection("mensajes").add(mensaje)
             et_mensaje.setText("")
@@ -116,12 +118,16 @@ class ChatActivity : AppCompatActivity() {
             var vista: View
             if (mensaj.remitente.equals(usuarioActual)) {
                 vista = inflador.inflate(R.layout.mensaje_enviado, null)
+                vista.tv_nombre_mensaje!!.text = mensaj.remitente
+                vista.tv_fecha_mensaje!!.text = mensaj.fecha
+                vista.contenido_mensaje!!.text = mensaj.mensaje
             } else {
                 vista = inflador.inflate(R.layout.mensajes, null)
+                vista.tv_nombre_mensaje1!!.text = mensaj.remitente
+                vista.tv_fecha_mensaje1!!.text = mensaj.fecha
+                vista.contenido_mensaje1!!.text = mensaj.mensaje
             }
-            vista.tv_nombre_mensaje!!.text = mensaj.remitente
-            vista.tv_fecha_mensaje!!.text = mensaj.fecha
-            vista.contenido_mensaje!!.text = mensaj.mensaje
+
 
             return vista
         }
