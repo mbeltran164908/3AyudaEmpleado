@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,7 +22,7 @@ class RegistroActivity : AppCompatActivity() {
 
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct != null) {
-            et_nombre.setText(acct.givenName+" "+acct.familyName);
+            et_nombre.setText(acct.givenName + " " + acct.familyName)
             val personPhoto: Uri? = acct.photoUrl
             Picasso.get().load(personPhoto).into(iv_imagen)
         }
@@ -42,9 +41,9 @@ class RegistroActivity : AppCompatActivity() {
         startActivityForResult(intent, RESULT_LOAD_IMAGE)
     }
 
-    override fun onActivityResult(requestCode:Int,resultCode:Int,data:Intent?){
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == RESULT_LOAD_IMAGE){
+        if (resultCode == Activity.RESULT_OK && requestCode == RESULT_LOAD_IMAGE) {
             iv_imagen.setImageURI(data?.data)
         }
     }
@@ -54,29 +53,29 @@ class RegistroActivity : AppCompatActivity() {
             val acct = GoogleSignIn.getLastSignedInAccount(this)
             if (acct != null) {
                 val usuarioPerfil = acct.email
-                if(usuarioPerfil!=null){
-                    val perfil=Perfil(
+                if (usuarioPerfil != null) {
+                    val perfil = Perfil(
                         et_nombre.text.toString(),
                         Integer.parseInt(et_edad.text.toString()),
                         et_servicios.text.toString()
                     )
-                    subirPerfil(usuarioPerfil,perfil)
+                    subirPerfil(usuarioPerfil, perfil)
                     updateUI()
                 }
             }
-        }else{
+        } else {
             Toast.makeText(this, "Todos los campos son necesarios!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun subirPerfil(id:String,perfil:Perfil){
+    private fun subirPerfil(id: String, perfil: Perfil) {
         var mFirestore = FirebaseFirestore.getInstance()
         mFirestore.collection("perfiles").document(id).set(perfil)
         Toast.makeText(this, "Perfil creado!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun updateUI(){
-        val intent = Intent(this, PerfilActivity::class.java)
+    private fun updateUI() {
+        val intent = Intent(this, TrabajosActivity::class.java)
         startActivity(intent)
     }
 

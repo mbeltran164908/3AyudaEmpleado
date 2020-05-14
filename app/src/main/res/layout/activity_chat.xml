@@ -1,64 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grisclaro"
+    android:backgroundTint="@color/grisclaro"
     android:orientation="vertical"
-    tools:context=".ChatActivity"
-    >
+    tools:context=".ChatActivity">
+
     <LinearLayout
+        android:id="@+id/layout_chat_fondo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
         android:orientation="vertical"
-        android:padding="15dp"
-        android:background="@color/azulgrisoscuro">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/comentario_contenido"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/negro"
-            android:text="Trabajo"/>
+        android:padding="15dp">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/comentario_nombre"
-            android:textSize="18dp"
-            android:text="nombre de la persona"
-            android:textColor="@color/grisoscuro"/>
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_nombre_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Nombre Apellido1 Apellido2"
+                android:textColor="@color/negro"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_fecha_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="11/05/2020"
+                android:textColor="@color/negro"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_correo_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="ejemplo@gmail.com"
+                android:textColor="@color/negro"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_estado_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Terminado"
+                android:textColor="@color/negro"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </LinearLayout>
 
     <ListView
-        android:padding="10dp"
-        android:id="@+id/lista_mensajes"
+        android:id="@+id/lv_mensajes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="5dp"
+        android:layout_marginHorizontal="5dp"
         android:layout_weight="5"
+        android:background="@color/grisclaro"
         android:divider="@null"
         android:dividerHeight="10dp" />
+
     <LinearLayout
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="@color/grisclaro"
+        android:backgroundTint="@color/grisclaro"
         android:gravity="bottom"
-        android:background="@color/grisclaro">
+        android:orientation="horizontal"
+        android:padding="5dp">
+
         <EditText
+            android:id="@+id/et_mensaje"
             android:layout_width="350dp"
             android:layout_height="50dp"
+            android:background="@drawable/round_edit_text"
+            android:hint="Escribe algo..."
             android:inputType="text"
-            android:id="@+id/mensaje_nuevo"/>
+            android:paddingHorizontal="10dp" />
 
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_send_black_24dp"
             android:id="@+id/btn_enviar"
-            android:background="@drawable/marco2"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/marco_boton_enviar"
+            android:src="@drawable/ic_send_black_24dp" />
     </LinearLayout>
 
 </LinearLayout>

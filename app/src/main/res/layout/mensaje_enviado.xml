@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/mensaje_recivido_redondeado"
+    android:background="@drawable/mensaje_enviado_redondeado"
+    android:gravity="right"
     android:orientation="vertical"
     android:paddingHorizontal="6dp"
     android:paddingVertical="6dp">
@@ -10,27 +11,26 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_nombre_mensaje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Nombre Apellido1 Apellido2"
-            android:textColor="@color/colorBoton"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+        android:gravity="right">
 
         <TextView
             android:id="@+id/tv_fecha_mensaje"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="11:30 11/05/2020"
             android:textColor="@color/negro"
             android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_nombre_mensaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Apellido1 Apellido2"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <TextView
@@ -38,7 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:gravity="right"
         android:text="texto del mensaje"
-        android:textColor="@color/grisoscuro"
+        android:textColor="@color/negro"
         android:textSize="16dp" />
 </LinearLayout>

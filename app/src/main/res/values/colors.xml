@@ -6,15 +6,16 @@
     <color name="colorBlanco">#FFFFFFFF</color>
     <color name="colorBoton">#03A9F4</color>
     <color name="blanco">#FFF</color>
-    <color name="azul">#06a4dc</color>
+    <color name="azul">#5AD1FB</color>
     <color name="azulclaro">#7bcccb</color>
-    <color name="naranja">#ea972a</color>
+    <color name="naranja">#FFB8C8</color>
     <color name="azulsombra">#9cbf9e</color>
     <color name="azuloscuro">#0000aa</color>
     <color name="negro">#000</color>
     <color name="cancelar">#ec2124</color>
     <color name="grisoscuro">#777</color>
-    <color name="grisclaro">#ddd</color>
+    <color name="grisclaro">#EAEAEA</color>
     <color name="azulgris">#ddf</color>
     <color name="azulgrisoscuro">#bbf</color>
+    <color name="primaryClaro">#D4B6FF</color>
 </resources>

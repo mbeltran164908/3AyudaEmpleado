@@ -13,12 +13,11 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
-import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_perfil.*
 import kotlinx.android.synthetic.main.trabajos.view.*
 
 class PerfilActivity : AppCompatActivity() {
-    var listaTrabajos=ArrayList<Trabajos>()
+    var listaTrabajos=ArrayList<Trabajo>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
@@ -69,11 +68,12 @@ class PerfilActivity : AppCompatActivity() {
     override fun onBackPressed() {
         moveTaskToBack(true)
     }
+
     private class AdaptadorTrabajos: BaseAdapter {
-        var trabajo=ArrayList<Trabajos>()
+        var trabajo=ArrayList<Trabajo>()
         var contexto: Context?=null
 
-        constructor(contexto: Context, trabajo:ArrayList<Trabajos>){
+        constructor(contexto: Context, trabajo:ArrayList<Trabajo>){
             this.contexto=contexto
             this.trabajo=trabajo
         }
@@ -82,17 +82,6 @@ class PerfilActivity : AppCompatActivity() {
             var trabaj=trabajo[position]
             var inflador= LayoutInflater.from(contexto)
             var vista=inflador.inflate(R.layout.mensajes,null)
-
-            vista.trabajo_titulo.setText(trabaj.trabajo)
-            vista.trabajo_nombre.setText(trabaj.nombre)
-
-            vista.trabajo_select.setOnClickListener{
-                var intent = Intent(contexto, ChatActivity::class.java)
-                intent.putExtra("trabajo",trabaj.trabajo)
-                intent.putExtra("nombre",trabaj.nombre)
-                intent.putExtra("listaTrabajo",trabaj.listaMensaje)
-                contexto!!.startActivity(intent)
-            }
 
             return vista
         }

@@ -1,3 +1,8 @@
 package beltran.miguel.a3ayudaempleado
 
-data class Mensaje(var nombre:String, var mensaje:String)
+data class Mensaje(
+    var fecha:String="",
+    var remitente:String="",
+    var idTrabajo:String="",
+    var mensaje:String=""
+)

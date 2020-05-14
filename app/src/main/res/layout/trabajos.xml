@@ -1,25 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/layout_fondo"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/marco2"
-    android:padding="10dp"
-    android:backgroundTint="@color/azulgrisoscuro"
-    android:id="@+id/trabajo_select">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/trabajo_titulo"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/negro"
-        android:text="Trabajo"/>
+    android:layout_marginHorizontal="10dp"
+    android:background="@drawable/marco_boton_enviar"
+    android:backgroundTint="@color/colorAccent"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/trabajo_nombre"
-        android:textSize="18dp"
-        android:text="nombre de la persona"
-        android:textColor="@color/grisoscuro"/>
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Nombre Apellido1 Apellido2"
+            android:textColor="@color/negro"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_fecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="11/05/2020"
+            android:textColor="@color/negro"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_correo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="ejemplo@gmail.com"
+            android:textColor="@color/grisoscuro"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_estado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Terminado"
+            android:textColor="@color/grisoscuro"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
 </LinearLayout>
