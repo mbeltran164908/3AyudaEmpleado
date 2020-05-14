@@ -91,7 +91,8 @@
 
         <EditText
             android:id="@+id/et_mensaje"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="50dp"
             android:background="@drawable/round_edit_text"
             android:hint="Escribe algo..."
