@@ -24,4 +24,5 @@
     <string name="aceptar">ACEPTAR</string>
     <string name="buzon">BUZÓN SUGERENCIAS</string>
     <string name="enviar">ENVIAR</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

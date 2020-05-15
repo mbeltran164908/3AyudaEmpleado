@@ -6,5 +6,6 @@ data class Trabajo(
     var idCliente:String="",
     var idEmpleado:String="",
     var idTrabajo:String="",
+    var locacion:String="",
     var nombreCliente:String=""
 )

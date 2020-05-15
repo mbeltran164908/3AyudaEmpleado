@@ -2,6 +2,7 @@ package beltran.miguel.a3ayudaempleado
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -103,6 +104,14 @@ class TrabajosActivity : AppCompatActivity() {
                 intent.putExtra("nombre", trabajo.nombreCliente)
                 intent.putExtra("estado", trabajo.estado)
                 contexto!!.startActivity(intent)
+            }
+
+            vista.btn_lugar.setOnClickListener {
+                val gmmIntentUri =
+                    Uri.parse(trabajo.locacion)
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                contexto!!.startActivity(mapIntent)
             }
             return vista
         }
