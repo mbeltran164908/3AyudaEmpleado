@@ -1,7 +1,9 @@
 package beltran.miguel.a3ayudaempleado
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -107,11 +109,36 @@ class TrabajosActivity : AppCompatActivity() {
             }
 
             vista.btn_lugar.setOnClickListener {
-                val gmmIntentUri =
+                var packageManager = contexto!!.packageManager
+                val mapIntent = Intent(
+                    android.content.Intent.ACTION_VIEW,
                     Uri.parse(trabajo.locacion)
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                mapIntent.setPackage("com.google.android.apps.maps")
-                contexto!!.startActivity(mapIntent)
+                )
+                var list = packageManager.queryIntentActivities(
+                    mapIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                )
+                if (list.size > 0) {
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    contexto!!.startActivity(mapIntent)
+                }else{
+                    val appPackageName="com.google.android.apps.maps"
+                    try {
+                        contexto!!.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=$appPackageName")
+                            )
+                        )
+                    } catch (anfe: ActivityNotFoundException) {
+                        contexto!!.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                            )
+                        )
+                    }
+                }
             }
             return vista
         }
@@ -133,7 +160,7 @@ class TrabajosActivity : AppCompatActivity() {
         moveTaskToBack(true)
     }
 
-    private fun updateUI(){
+    private fun updateUI() {
         val intent = Intent(this, PerfilActivity::class.java)
         startActivity(intent)
     }
