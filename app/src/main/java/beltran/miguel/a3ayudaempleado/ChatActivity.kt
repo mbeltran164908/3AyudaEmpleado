@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.mensaje_enviado.view.*
 import kotlinx.android.synthetic.main.mensajes.view.*
@@ -34,6 +35,7 @@ class ChatActivity : AppCompatActivity() {
     val db = FirebaseFirestore.getInstance()
     var listaMensajes = ArrayList<Mensaje>()
     var idTrabajo: String? = null
+    var perfil:Perfil?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,7 @@ class ChatActivity : AppCompatActivity() {
             builder.show()
         }
 
+        obtenerPerfil()
         configurarVistaTitulo()
         agregarListenerMensajes()
         agregarListenerLocacion()
@@ -113,11 +116,32 @@ class ChatActivity : AppCompatActivity() {
         idTrabajo = bundle.getString("idTrabajo")
     }
 
+    fun obtenerPerfil(){
+        val acct = GoogleSignIn.getLastSignedInAccount(this)
+        if (acct != null) {
+            val currentUserId=acct.email
+            if(currentUserId!=null){
+                var mFirestore = FirebaseFirestore.getInstance()
+                mFirestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+                mFirestore
+                    .collection("perfiles").document(currentUserId)
+                    .get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            perfil = document.toObject(Perfil::class.java) ?: Perfil()
+                        }
+                    }.addOnFailureListener {
+                        Toast.makeText(this, "Error al recibir datos!", Toast.LENGTH_LONG).show()
+                    }
+            }
+        }
+    }
+
     private fun enviarMensaje() {
         if (!et_mensaje.text.isBlank()) {
             val sdf = SimpleDateFormat("hh:mm:ss a dd/M/yyyy")
             val currentDate = sdf.format(Calendar.getInstance().time)
-            val sender = GoogleSignIn.getLastSignedInAccount(this)?.displayName
+            val sender = perfil?.nombre
             val mensaje = Mensaje(currentDate, idTrabajo!!, et_mensaje.text.toString(), sender!!)
 
             db.collection("mensajes").add(mensaje)
