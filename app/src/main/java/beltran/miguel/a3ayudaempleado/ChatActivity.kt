@@ -1,11 +1,18 @@
 package beltran.miguel.a3ayudaempleado
 
+import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.BaseAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +30,7 @@ import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
 
+    var locacion: String? = null
     val db = FirebaseFirestore.getInstance()
     var listaMensajes = ArrayList<Mensaje>()
     var idTrabajo: String? = null
@@ -36,10 +44,54 @@ class ChatActivity : AppCompatActivity() {
         btn_enviar.setOnClickListener {
             enviarMensaje()
         }
+        btn_cancelar_trabajo.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Terminar trabajo")
+            builder.setMessage("¿Desea terminar el trabajo?")
+            builder.setPositiveButton("Si") { dialog, which -> actualizarTrabajo() }
+            builder.setNegativeButton("No") { dialog, which -> null }
+            builder.show()
+        }
 
         configurarVistaTitulo()
-        cargarMensajes()
         agregarListenerMensajes()
+        agregarListenerLocacion()
+    }
+
+
+    private fun agregarListenerLocacion() {
+        btn_lugar_chat.setOnClickListener {
+            var packageManager = this.packageManager
+            val mapIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(locacion)
+            )
+            var list = packageManager.queryIntentActivities(
+                mapIntent,
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
+            if (list.size > 0) {
+                mapIntent.setPackage("com.google.android.apps.maps")
+                this.startActivity(mapIntent)
+            } else {
+                val appPackageName = "com.google.android.apps.maps"
+                try {
+                    this.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=$appPackageName")
+                        )
+                    )
+                } catch (anfe: ActivityNotFoundException) {
+                    this.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                        )
+                    )
+                }
+            }
+        }
     }
 
     private fun configurarVistaTitulo() {
@@ -57,20 +109,16 @@ class ChatActivity : AppCompatActivity() {
         tv_nombre_chat.text = bundle.getString("nombre")
         tv_correo_chat.text = bundle.getString("idCliente")
         tv_fecha_chat.text = bundle.getString("fecha")
-        tv_estado_chat.text = bundle.getString("estado")
+        locacion = bundle.getString("locacion")
         idTrabajo = bundle.getString("idTrabajo")
-    }
-
-    private fun cargarMensajes() {
-
     }
 
     private fun enviarMensaje() {
         if (!et_mensaje.text.isBlank()) {
             val sdf = SimpleDateFormat("hh:mm:ss a dd/M/yyyy")
-            val currentDate = sdf.format(Date())
+            val currentDate = sdf.format(Calendar.getInstance().time)
             val sender = GoogleSignIn.getLastSignedInAccount(this)?.displayName
-            val mensaje = Mensaje(currentDate, idTrabajo!!, et_mensaje.text.toString(),sender!!)
+            val mensaje = Mensaje(currentDate, idTrabajo!!, et_mensaje.text.toString(), sender!!)
 
             db.collection("mensajes").add(mensaje)
             et_mensaje.setText("")
@@ -127,8 +175,6 @@ class ChatActivity : AppCompatActivity() {
                 vista.tv_fecha_mensaje1!!.text = mensaj.fecha
                 vista.contenido_mensaje1!!.text = mensaj.mensaje
             }
-
-
             return vista
         }
 
@@ -143,6 +189,21 @@ class ChatActivity : AppCompatActivity() {
         override fun getCount(): Int {
             return mensaje!!.size
         }
+    }
+
+    private fun actualizarTrabajo(){
+            var trabajoRef = db.collection("trabajos").document(idTrabajo!!);
+            trabajoRef.update("estado", "terminado")
+                .addOnSuccessListener {
+                    Toast.makeText(this,"Trabajo terminado!",Toast.LENGTH_SHORT).show()
+                    updateUI()
+                }
+
+    }
+
+    private fun updateUI(){
+        val intent = Intent(this, TrabajosActivity::class.java)
+        startActivity(intent)
     }
 
 }

@@ -42,7 +42,7 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp">
@@ -51,22 +51,28 @@
                 android:id="@+id/tv_correo_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:text="ejemplo@gmail.com"
-                android:textColor="@color/negro"
+                android:layout_weight="1"
+                android:textColor="@color/grisoscuro"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_estado_chat"
-                android:layout_width="wrap_content"
+            <ImageButton
+                android:id="@+id/btn_cancelar_trabajo"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Terminado"
-                android:textColor="@color/negro"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:background="@null"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:src="@drawable/ic_cancelar"/>
+
+            <ImageButton
+                android:id="@+id/btn_lugar_chat"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="right"
+                android:src="@drawable/ic_location"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ListView
@@ -74,6 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"
         android:layout_marginHorizontal="5dp"
         android:layout_weight="5"
         android:background="@color/grisclaro"

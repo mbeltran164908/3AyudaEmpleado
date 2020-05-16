@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.trabajos.view.*
 
 class TrabajosActivity : AppCompatActivity() {
 
+    var adaptador:AdaptadorTrabajos?=null
     val db = FirebaseFirestore.getInstance()
     var listaTrabajos = ArrayList<Trabajo>()
 
@@ -36,17 +38,9 @@ class TrabajosActivity : AppCompatActivity() {
         btn_perfil.setOnClickListener {
             updateUI()
         }
-        //obtenerTrabajos();
-        agregarListenerTrabajos()
-    }
-
-    private fun actualizarLista() {
-        val adaptador = AdaptadorTrabajos(this, listaTrabajos)
+        adaptador = AdaptadorTrabajos(this, listaTrabajos)
         lv_trabajos.adapter = adaptador
-    }
-
-    private fun getIdUsuario(): String? {
-        return GoogleSignIn.getLastSignedInAccount(this)?.email
+        agregarListenerTrabajos()
     }
 
     private fun agregarListenerTrabajos() {
@@ -57,18 +51,29 @@ class TrabajosActivity : AppCompatActivity() {
                     return@addSnapshotListener
                 }
                 for (doc in value!!) {
-                    val trabajo = doc.toObject(Trabajo::class.java)
+                    var trabajo = doc.toObject(Trabajo::class.java)
                     if (trabajo.idEmpleado.equals(GoogleSignIn.getLastSignedInAccount(this)?.email)) {
-                        if (!listaTrabajos.contains(trabajo)) {
-                            listaTrabajos.add(trabajo)
+                        if (!trabajo.estado.equals("terminado")) {
+                            if(!listaTrabajos.contains(trabajo)){
+                                listaTrabajos.add(trabajo)
+                            }
+                        }else{
+                            var listaIndex=ArrayList<Trabajo>()
+                            for(item in listaTrabajos){
+                                if(item.idTrabajo.equals(trabajo.idTrabajo)){
+                                    listaIndex.add(item)
+                                }
+                            }
+                            listaTrabajos.removeAll(listaIndex)
                         }
+                        adaptador!!.setLista(listaTrabajos)
+                        adaptador!!.notifyDataSetChanged()
                     }
                 }
-                actualizarLista()
             }
     }
 
-    private class AdaptadorTrabajos : BaseAdapter {
+    class AdaptadorTrabajos : BaseAdapter {
         var trabajos: List<Trabajo>? = null
         var contexto: Context? = null
 
@@ -81,8 +86,7 @@ class TrabajosActivity : AppCompatActivity() {
             val trabajo = trabajos!![position]
             val inflador = LayoutInflater.from(contexto)
             val vista = inflador.inflate(R.layout.trabajos, null)
-
-            vista.tv_correo.text = trabajo.idCliente
+            vista.tv_correo.text = trabajo.idTrabajo
             vista.tv_fecha.text = trabajo.fechaCreacion
             vista.tv_nombre.text = trabajo.nombreCliente
             vista.tv_estado.text = trabajo.estado
@@ -99,44 +103,51 @@ class TrabajosActivity : AppCompatActivity() {
             }
 
             vista.setOnClickListener {
-                val intent = Intent(contexto!!, ChatActivity::class.java)
-                intent.putExtra("idTrabajo", trabajo.idTrabajo)
-                intent.putExtra("idCliente", trabajo.idCliente)
-                intent.putExtra("fecha", trabajo.fechaCreacion)
-                intent.putExtra("nombre", trabajo.nombreCliente)
-                intent.putExtra("estado", trabajo.estado)
-                contexto!!.startActivity(intent)
+                if(!trabajo.estado.equals("terminado")){
+                    val intent = Intent(contexto!!, ChatActivity::class.java)
+                    intent.putExtra("idTrabajo", trabajo.idTrabajo)
+                    intent.putExtra("idCliente", trabajo.idTrabajo)
+                    intent.putExtra("fecha", trabajo.fechaCreacion)
+                    intent.putExtra("nombre", trabajo.nombreCliente)
+                    intent.putExtra("estado", trabajo.estado)
+                    intent.putExtra("locacion",trabajo.locacion)
+                    contexto!!.startActivity(intent)
+                }else{
+                    Toast.makeText(contexto!!,"Trabajo terminado",Toast.LENGTH_SHORT).show()
+                }
             }
 
             vista.btn_lugar.setOnClickListener {
-                var packageManager = contexto!!.packageManager
-                val mapIntent = Intent(
-                    android.content.Intent.ACTION_VIEW,
-                    Uri.parse(trabajo.locacion)
-                )
-                var list = packageManager.queryIntentActivities(
-                    mapIntent,
-                    PackageManager.MATCH_DEFAULT_ONLY
-                )
-                if (list.size > 0) {
-                    mapIntent.setPackage("com.google.android.apps.maps")
-                    contexto!!.startActivity(mapIntent)
-                }else{
-                    val appPackageName="com.google.android.apps.maps"
-                    try {
-                        contexto!!.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("market://details?id=$appPackageName")
+                if(!trabajo.estado.equals("terminado")) {
+                    var packageManager = contexto!!.packageManager
+                    val mapIntent = Intent(
+                        android.content.Intent.ACTION_VIEW,
+                        Uri.parse(trabajo.locacion)
+                    )
+                    var list = packageManager.queryIntentActivities(
+                        mapIntent,
+                        PackageManager.MATCH_DEFAULT_ONLY
+                    )
+                    if (list.size > 0) {
+                        mapIntent.setPackage("com.google.android.apps.maps")
+                        contexto!!.startActivity(mapIntent)
+                    } else {
+                        val appPackageName = "com.google.android.apps.maps"
+                        try {
+                            contexto!!.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=$appPackageName")
+                                )
                             )
-                        )
-                    } catch (anfe: ActivityNotFoundException) {
-                        contexto!!.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                        } catch (anfe: ActivityNotFoundException) {
+                            contexto!!.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
@@ -154,6 +165,14 @@ class TrabajosActivity : AppCompatActivity() {
         override fun getCount(): Int {
             return trabajos!!.size
         }
+        fun remove(id:Int) {
+            trabajos!!.drop(id)
+        }
+
+        fun setLista(lista:ArrayList<Trabajo>){
+            trabajos= lista.sortedWith(compareByDescending { it.fechaCreacion })
+        }
+
     }
 
     override fun onBackPressed() {
@@ -164,4 +183,5 @@ class TrabajosActivity : AppCompatActivity() {
         val intent = Intent(this, PerfilActivity::class.java)
         startActivity(intent)
     }
+
 }
